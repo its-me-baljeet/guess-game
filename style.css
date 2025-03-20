@@ -1,0 +1,172 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: rgb(208, 254, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 15px;
+    width: 100%;
+    max-width: 800px;
+}
+
+#complement,
+#guesses-left-container,
+.guessed-letters {
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(8, 61, 62);
+    text-align: center;
+    width: 100%;
+}
+
+.word-container {
+    font-size: 40px;
+    font-weight: bold;
+    color: rgb(91, 170, 172);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dot {
+    display: inline-block;
+    text-align: center;
+    line-height: 1;
+    color: rgb(91, 170, 172);
+}
+
+.letter {
+    display: inline-block;
+    text-align: center;
+    line-height: 1;
+    color: rgb(91, 170, 172);
+}
+
+#letter-input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(62, 119, 120);
+}
+
+#letter-input-prompt {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(8, 61, 62);
+}
+
+
+.button-container {
+    display: flex;
+    gap: 10px;
+}
+
+.button-container button {
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(255, 154, 87);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.game-title img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 600px) {
+    main {
+        gap: 15px;
+    }
+
+    #complement,
+    #guesses-left-container,
+    .guessed-letters {
+        font-size: 22px;
+    }
+
+    .word-container {
+        font-size: 32px;
+    }
+
+    #letter-input {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    #letter-input-prompt {
+        font-size: 18px;
+    }
+
+    .button-container button {
+        width: 90px;
+        height: 45px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+        padding: 20px 0;
+    }
+
+    main {
+        gap: 12px;
+    }
+
+    #complement,
+    #guesses-left-container,
+    .guessed-letters {
+        font-size: 18px;
+    }
+
+    .word-container {
+        font-size: 28px;
+    }
+
+    #letter-input {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    #letter-input-prompt {
+        font-size: 16px;
+    }
+
+    .button-container {
+        gap: 8px;
+    }
+
+    .button-container button {
+        width: 80px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
