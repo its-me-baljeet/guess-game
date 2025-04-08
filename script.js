@@ -9,6 +9,7 @@ let secretWord = "";
 let displayedWord;
 let guessesLeft;
 let guessedLetters = "";
+let word = "";
 
 async function getRandomWord() {
     const response = await fetch("https://random-word-api.vercel.app/api?length=5");
@@ -18,28 +19,37 @@ async function getRandomWord() {
 
 async function initGame() {
     secretWord = await getRandomWord();
+    word = secretWord;
     console.log(secretWord);
     guessesLeft = 10;
     guessedLetters = "";
-    displayedWord = Array(secretWord.length).fill("_");
+    displayedWord = Array(word.length).fill("_");
 
     let revealedCount = 0;
     const maxReveals = 2;
-    let revealedLetters = [];
+    let revealedLetters = "";
+    const revealedPos = [];
 
-    while (revealedCount < maxReveals && revealedCount < secretWord.length) {
-        const randomIndex = Math.floor(Math.random() * secretWord.length);
+    while (revealedCount < maxReveals && revealedCount < word.length) {
+        const randomIndex = Math.floor(Math.random() * word.length);
         if (displayedWord[randomIndex] === "_") {
-            const letter = secretWord[randomIndex].toUpperCase();
+            const letter = word[randomIndex].toUpperCase();
             displayedWord[randomIndex] = letter;
+            revealedPos.push(randomIndex);
+
             revealedCount++;
 
             if (!revealedLetters.includes(letter)) {
-                revealedLetters.push(letter);
-                guessedLetters += letter + " ";
+                revealedLetters += letter;
             }
         }
     }
+    // Convert secretWord to array for easier manipulation
+    secretWord = word
+        .split('')
+        .filter((_, index) => !revealedPos.includes(index))
+        .join('');
+
 
     updateDisplay();
     complement.textContent = "Good Luck!";
@@ -48,6 +58,10 @@ async function initGame() {
     letterInput.disabled = false;
 }
 function updateDisplay() {
+    console.log(secretWord)
+    console.log(word)
+    console.log(guessedLetters)
+    console.log(displayedWord)
     wordContainer.innerHTML = '';
 
     displayedWord.forEach(char => {
@@ -67,20 +81,20 @@ function updateDisplay() {
     guessedLettersContainer.textContent = guessedLetters;
     letterInput.value = "";
     if (checkLose()) {
-        complement.textContent = "You lose! The word was " + secretWord.toUpperCase();
+        complement.textContent = "You lose! The word was " + word.toUpperCase();
         complement.style.color = "red";
         gameOver();
         return;
     }
     else if (checkWin()) {
-        complement.textContent = "You win! The word was " + secretWord.toUpperCase();
+        complement.textContent = "You win! The word was " + word.toUpperCase();
         complement.style.color = "green";
         gameOver();
         return;
     }
 }
 function checkWin() {
-    return displayedWord.join("").toLowerCase() === secretWord.toLowerCase();
+    return displayedWord.join("").toLowerCase() === word.toLowerCase();
 }
 function checkLose() {
     return guessesLeft <= 0;
@@ -102,8 +116,8 @@ guessButton.addEventListener("click", () => {
             return;
         }
         else if (secretWord.includes(letter)) {
-            for (let i = 0; i < secretWord.length; i++) {
-                if (secretWord[i] === letter) {
+            for (let i = 0; i < word.length; i++) {
+                if (word[i] === letter) {
                     displayedWord[i] = letter.toUpperCase();
                 }
             }
